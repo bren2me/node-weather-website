@@ -3,7 +3,7 @@ const request = require('request')
 const forecast = (latitude, longitude, callback) => {
     const url = 'http://api.weatherstack.com/current?access_key=a7d2d9f441801cf2609ae59ef824b15f&query=' + longitude +',' + latitude 
     // const urx = 'http://api.weatherstack.com/current?access_key=a7d2d9f441801cf2609ae59ef824b15f&query=42.3605,0'
-    console.log(url)
+    // console.log(url)
     request({ url, json: true }, (error, { body }) => {
         if (error) {
             callback('Unable to connect to weather services', undefined)
@@ -11,10 +11,9 @@ const forecast = (latitude, longitude, callback) => {
             callback('Unable to find this place. Try again.', undefined)
         } else {
             callback(undefined, {
-                weather_description: body.current.weather_descriptions[0],
-                temperature: body.current.temperature,
-                humidity: body.current.humidity,
-                cloudCover: body.current.cloudcover
+                weather_description: body.current.weather_descriptions[0] + '. The temperature is ' +
+                body.current.temperature + ' degrees, with ' + body.current.humidity + '% humidity. The cloud cover is ' +
+                body.current.cloudcover + '%.'
             })
         }
     })

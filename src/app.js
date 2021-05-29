@@ -53,17 +53,13 @@ app.get('/weather', (req, res) => {
         if (error) {
             return res.send ( { error } ) 
         }
-        forecast(latitude, longitude, (error, { weather_description, temperature, humidity, cloudCover, } = {}) => {
+        forecast(latitude, longitude, (error, { weather_description } = {}) => {
             if (error) {
                 return res.send(error)
             }
             res.send({
                 forecast: weather_description,
-                location: location,
-                address: req.query.address,
-                temperature,
-                humidity,
-                cloudCover
+                location: location
             })
         })
     })
